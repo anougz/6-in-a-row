@@ -1,0 +1,37 @@
+<div class="game">
+  <div class="status">
+    Joueur courant :
+    <span [ngClass]="{ 'jaune': game.currentPlayer===1, 'rouge': game.currentPlayer===2 }">
+      {{Game.currentPlayer===1 ? 'Jaune' : 'Rouge' }}
+    </span>
+  </div>
+
+  <div class="board">
+    <div
+      class="cell header"
+      *ngFor="let _ of game.board[0]; let c = index"
+      (click)="selectColumn(c)"
+      [class.selected]="selections.includes(c)">
+      {{ selections.includes(c) ? '✓' : '' }}
+    </div>
+
+    <div class="cell"
+         *ngFor="let row of game.board; let r = index"
+         [attr.data-row]="r"
+         [attr.data-col]="c"
+         *ngFor="let cell of row; let c = index">
+      <div *ngIf="cell !== 0"
+           class="piece"
+           [ngClass]="{ 'player1': cell===1, 'player2': cell===2 }">
+      </div>
+    </div>
+  </div>
+
+  <button (click)="play()" [disabled]="selections.length !== 3 || game.winner">
+    Jouer
+  </button>
+
+  <div *ngIf="game.winner" class="winner">
+    Le joueur {{ game.winner }} a gagné !
+  </div>
+</div>

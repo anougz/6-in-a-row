@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Liste des Parties</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>Nom du Joueur 1</th>
+      <th>Statut</th>
+      <th>Date de Création</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let game of games; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ game.player1Name }}</td>
+      <td>{{ game.status || 'En attente' }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="games.length === 0" class="alert alert-warning mt-3">
+    Aucune partie disponible.
+  </div>
+</div>
